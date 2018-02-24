@@ -1,0 +1,161 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 40000000        DCD              0X40000000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4816            LDR              R0,=NUM1
+   12 00000002 4917            LDR              R1,=NUM2
+   13 00000004 F8DF 805C       LDR              R8,=RESULT
+   14 00000008         
+   15 00000008 F04F 0604       MOV              R6,#04
+   16 0000000C         
+   17 0000000C F04F 0700       MOV              R7,#0
+   18 00000010 F387 8803       MSR              PSR,R7
+   19 00000014         
+   20 00000014 F850 2B04 
+                       UP      LDR              R2,[R0],#4
+   21 00000018 F851 3B04       LDR              R3,[R1],#4
+   22 0000001C 18D5            ADDS             R5,R2,R3
+   23 0000001E F145 0500       ADC              R5,#0
+   24 00000022         
+   25 00000022 F848 5B04       STR              R5,[R8],#4
+   26 00000026         
+   27 00000026 F1A6 0601       SUB              R6,#01
+   28 0000002A F096 0F00       TEQ              R6,#0
+   29 0000002E D1F1            BNE              UP
+   30 00000030         
+   31 00000030 F145 0500       ADC              R5,#0
+   32 00000034 F8C8 5000       STR              R5,[R8]
+   33 00000038         
+   34 00000038 E7FE    STOP    B                STOP
+   35 0000003A 00 00 00000001 
+              00000002 
+              00000003 
+              00000004 NUM1    DCD              1,2,3,4
+   36 0000004C 00000005 
+              00000006 
+              00000006 
+              00000001 NUM2    DCD              5,6,6,1
+   37 0000005C 00000000 
+              00000000 
+              00000000         AREA             DATASEG,DATA,READWRITE
+   38 00000000 00000000 
+                       RESULT  DCD              0
+   39 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=lab2_3.d
+ -olab2_3.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=lab2_3.lst lab2_3.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file lab2_3.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file lab2_3.asm
+   Uses
+      At line 2 in file lab2_3.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM1 0000003C
+
+Symbol: NUM1
+   Definitions
+      At line 35 in file lab2_3.asm
+   Uses
+      At line 11 in file lab2_3.asm
+Comment: NUM1 used once
+NUM2 0000004C
+
+Symbol: NUM2
+   Definitions
+      At line 36 in file lab2_3.asm
+   Uses
+      At line 12 in file lab2_3.asm
+Comment: NUM2 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file lab2_3.asm
+   Uses
+      At line 5 in file lab2_3.asm
+      At line 9 in file lab2_3.asm
+
+STOP 00000038
+
+Symbol: STOP
+   Definitions
+      At line 34 in file lab2_3.asm
+   Uses
+      At line 34 in file lab2_3.asm
+Comment: STOP used once
+UP 00000014
+
+Symbol: UP
+   Definitions
+      At line 20 in file lab2_3.asm
+   Uses
+      At line 29 in file lab2_3.asm
+Comment: UP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file lab2_3.asm
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATASEG 00000000
+
+Symbol: DATASEG
+   Definitions
+      At line 37 in file lab2_3.asm
+   Uses
+      None
+Comment: DATASEG unused
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 38 in file lab2_3.asm
+   Uses
+      At line 13 in file lab2_3.asm
+Comment: RESULT used once
+2 symbols
+343 symbols in table

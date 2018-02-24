@@ -1,0 +1,119 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 40000000        DCD              0X40000000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4805            LDR              R0,=NUM1
+   12 00000002 6801            LDR              R1,[R0]
+   13 00000004 4B05            LDR              R3,=NUM2
+   14 00000006 681A            LDR              R2,[R3]
+   15 00000008 EBA1 0402       SUB              R4,R1,R2
+   16 0000000C E7FE    STOP    B                STOP
+   17 0000000E 00 00 77777777 
+                       NUM1    DCD              0X77777777
+   18 00000014 11111111 
+                       NUM2    DCD              0X11111111
+   19 00000018 00000000 
+              00000000         AREA             data,DATA,READWRITE
+   20 00000000                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=lab2_2.d
+ -olab2_2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=lab2_2.lst lab2_2.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file lab2_2.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file lab2_2.asm
+   Uses
+      At line 2 in file lab2_2.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM1 00000010
+
+Symbol: NUM1
+   Definitions
+      At line 17 in file lab2_2.asm
+   Uses
+      At line 11 in file lab2_2.asm
+Comment: NUM1 used once
+NUM2 00000014
+
+Symbol: NUM2
+   Definitions
+      At line 18 in file lab2_2.asm
+   Uses
+      At line 13 in file lab2_2.asm
+Comment: NUM2 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file lab2_2.asm
+   Uses
+      At line 5 in file lab2_2.asm
+      At line 9 in file lab2_2.asm
+
+STOP 0000000C
+
+Symbol: STOP
+   Definitions
+      At line 16 in file lab2_2.asm
+   Uses
+      At line 16 in file lab2_2.asm
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file lab2_2.asm
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+data 00000000
+
+Symbol: data
+   Definitions
+      At line 19 in file lab2_2.asm
+   Uses
+      None
+Comment: data unused
+1 symbol
+341 symbols in table
