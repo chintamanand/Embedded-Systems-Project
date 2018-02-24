@@ -283,8 +283,7 @@ unsigned char op_code[4][4]={{0x2b,0x2d,0x2a,0x2f},{'%','t','c','s'},{'l','L','f
  }
 
  void wr_cn(void)                        
- { 	 
-	clear_ports();
+ { 	clear_ports();
 	LPC_GPIO0->FIOPIN = temp2;		
     LPC_GPIO0->FIOCLR = RS_CTRL;		
 	LPC_GPIO0->FIOSET = EN_CTRL;   	
