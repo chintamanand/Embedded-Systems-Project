@@ -12,5 +12,6 @@ Reset_Handler
 	MOV R1,#0123
 	MOV R2,#33
 	MOV R1,R0
+	
 STOP B STOP
     END
