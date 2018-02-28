@@ -1,0 +1,125 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 40001000        DCD              0x40001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4808            LDR              R0,=NUM1
+   12 00000002 6801            LDR              R1,[R0]
+   13 00000004 4D08            LDR              R5,=RESULT
+   14 00000006 F04F 040A       MOV              R4,#0XA
+   15 0000000A         
+   16 0000000A F001 030F       AND              R3,R1,#0X0F
+   17 0000000E F001 02F0       AND              R2,R1,#0XF0
+   18 00000012 EA4F 1212       LSR              R2,#4
+   19 00000016 EBA2 0204       SUB              R2,R4
+   20 0000001A 441A            ADD              R2,R3
+   21 0000001C 602A            STR              R2,[R5]
+   22 0000001E E7FE    STOP    B                STOP
+   23 00000020 00000099 
+                       NUM1    DCD              0X99
+   24 00000024 00000000 
+              00000000         AREA             data,DATA,READWRITE
+   25 00000000 00000000 
+                       RESULT  DCD              0
+   26 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=lab4_4.d
+ -olab4_4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=lab4_4.lst lab4_4.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file lab4_4.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file lab4_4.asm
+   Uses
+      At line 2 in file lab4_4.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM1 00000020
+
+Symbol: NUM1
+   Definitions
+      At line 23 in file lab4_4.asm
+   Uses
+      At line 11 in file lab4_4.asm
+Comment: NUM1 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file lab4_4.asm
+   Uses
+      At line 5 in file lab4_4.asm
+      At line 9 in file lab4_4.asm
+
+STOP 0000001E
+
+Symbol: STOP
+   Definitions
+      At line 22 in file lab4_4.asm
+   Uses
+      At line 22 in file lab4_4.asm
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file lab4_4.asm
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 25 in file lab4_4.asm
+   Uses
+      At line 13 in file lab4_4.asm
+Comment: RESULT used once
+data 00000000
+
+Symbol: data
+   Definitions
+      At line 24 in file lab4_4.asm
+   Uses
+      None
+Comment: data unused
+2 symbols
+341 symbols in table

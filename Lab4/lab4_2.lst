@@ -1,0 +1,141 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,Readonly
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 40000000        DCD              0x40000000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,Code,Readonly
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4811            LDR              R0,=NUM1
+   12 00000002 4DFF            LDR              R5,RESULT
+   13 00000004 F04F 0408       MOV              R4,#0X8
+   14 00000008 F04F 0300       MOV              R3,#0
+   15 0000000C         UP
+   16 0000000C F810 1B04       LDRB             R1,[R0],#4
+   17 00000010 F001 010F       AND              R1,#0X0F
+   18 00000014 FA01 F103       LSL              R1,R3
+   19 00000018 440E            ADD              R6,R1
+   20 0000001A F103 0304       ADD              R3,#4
+   21 0000001E F1A4 0401       SUB              R4,#1
+   22 00000022 D1F3            BNE              UP
+   23 00000024 602E            STR              R6,[R5]
+   24 00000026 E7FE    STOP    B                STOP
+   25 00000028 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 
+              00000006 
+              00000007 
+              00000008 NUM1    DCD              0X01,0X02,0X03,0X04,0X05,0X06,0
+X07,0X08
+   26 00000048 00000000        AREA             data,DATA,READWRITE
+   27 00000000 00000000 
+                       RESULT  DCD              0
+   28 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=lab4_2.d
+ -olab4_2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=lab4_2.lst lab4_2.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file lab4_2.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file lab4_2.asm
+   Uses
+      At line 2 in file lab4_2.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM1 00000028
+
+Symbol: NUM1
+   Definitions
+      At line 25 in file lab4_2.asm
+   Uses
+      At line 11 in file lab4_2.asm
+Comment: NUM1 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file lab4_2.asm
+   Uses
+      At line 5 in file lab4_2.asm
+      At line 9 in file lab4_2.asm
+
+STOP 00000026
+
+Symbol: STOP
+   Definitions
+      At line 24 in file lab4_2.asm
+   Uses
+      At line 24 in file lab4_2.asm
+Comment: STOP used once
+UP 0000000C
+
+Symbol: UP
+   Definitions
+      At line 15 in file lab4_2.asm
+   Uses
+      At line 22 in file lab4_2.asm
+Comment: UP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file lab4_2.asm
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 27 in file lab4_2.asm
+   Uses
+      At line 12 in file lab4_2.asm
+Comment: RESULT used once
+data 00000000
+
+Symbol: data
+   Definitions
+      At line 26 in file lab4_2.asm
+   Uses
+      None
+Comment: data unused
+2 symbols
+342 symbols in table
