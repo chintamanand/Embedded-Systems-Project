@@ -1,0 +1,50 @@
+#include<LPC17xx.h>
+
+unsigned int i,j;
+unsigned long LED =0X00000010;
+unsigned int a=0;
+int main(void){
+	SystemInit();
+	SystemCoreClockUpdate();
+	LPC_PINCON->PINSEL0 &= 0xFF0000FF;
+	LPC_PINCON->PINSEL4 &=0;
+	
+	LPC_GPIO0->FIODIR |= 0X00000FF0;
+	LPC_GPIO2->FIODIR |=0x00000000;
+	 
+	while(1)
+	{
+	
+		int k=LPC_GPIO2->FIOPIN;
+			k&=0x00001000;
+		k=k>>12;
+		if(k==1)
+		{
+		
+			LPC_GPIO0->FIOSET=a<<4;
+		
+			
+			for(j=0;j<10000;j++);
+			LPC_GPIO0->FIOCLR=0xFFFF;
+		a++;
+		
+		if (a==256)
+		a=0;
+	
+	}
+	else
+	{
+			LPC_GPIO0->FIOSET=a<<4;
+			for(j=0;j<10000;j++);
+			LPC_GPIO0->FIOCLR=0xFFFF;
+		
+		a--;
+		if (a==0)
+		a=255;
+	
+	}		
+		
+	
+		}
+		}
+	
