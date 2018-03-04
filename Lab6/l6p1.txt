@@ -21,11 +21,5 @@ int main(void){
 			LPC_GPIO0->FIOCLR=0xFFFF;
 		
 		}
-		
-	if (a==256)
-		a=0;
-		
-	
-		}
-		}
-	
+		if (a==256)
+		a=0;}}
