@@ -1,9 +1,9 @@
 #include<LPC17xx.h>
-
 unsigned int i,j;
 unsigned long LED =0X00000010;
 unsigned int a=0;
-int main(void){
+int main(void)
+{
 	SystemInit();
 	SystemCoreClockUpdate();
 	LPC_PINCON->PINSEL0 &= 0xFF0000FF;
