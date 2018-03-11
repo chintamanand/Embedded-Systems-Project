@@ -1,5 +1,6 @@
 	AREA RESET,DATA,READONLY
 	EXPORT __Vectors
+	
 __Vectors
 	DCD 0X40000000
 	DCD Reset_Handler
@@ -7,6 +8,7 @@ __Vectors
 	AREA mycode,CODE,READONLY
 	ENTRY
 	EXPORT Reset_Handler
+	
 Reset_Handler
 	 LDR R0,=NUM1
      LDR R1,[R0]
