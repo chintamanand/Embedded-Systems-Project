@@ -1,0 +1,56 @@
+#include<LPC17xx.h>
+
+int start = 0, end = 0;	//TC corresponding
+int width;
+int i;
+
+void timer(void) {
+	LPC_TIM0->PR = 2999;	//So that TCI is 1 KHZ (TC increments every 1 ms)
+	LPC_TIM0->CTCR = 0x00;	// Timer Mode
+	LPC_TIM0->TCR = 0x01;	// Start Timer
+}
+
+void extint(void) {
+	LPC_SC->EXTMODE = 0x03;	//EINT0 & EINT1 edge sensitive
+	LPC_SC->EXTPOLAR = 0x01; //EINT0 -> RE, EINT1 -> FE
+	NVIC_EnableIRQ(EINT0_IRQn);	//Enable interrupts
+	NVIC_EnableIRQ(EINT1_IRQn);
+}
+
+void EINT0_IRQHandler(void) {		//When RE
+	LPC_SC -> EINT = 0x01;	//Clear interrupt
+	start = LPC_TIM0 -> TC; //Note TC at RE
+}
+
+void EINT0_IRQHandler(void) {		//When FE
+	LPC_SC -> EINT = 0x01;	//Clear interrupt
+	end = LPC_TIM0 -> TC; //Note TC at FE
+	width = end - start;	//Width will automatically be in ms cuz of PR=2
+}
+
+int main(void) {
+	// Config Display
+	LPC_PINCON->PINSEL0 = 0;	//P0.4-P0.11 7 seg disp
+	LPC_PINCON->PINSEL3 = 0;	//P1.23-P1.26 decoder
+	LPC_GPIO0->FIODIR = 0xFF << 4;
+	LPC_GPIO1->FIODIR = 0xF << 23;
+	1
+	//Config Timer
+	timer();
+	
+	//Config External Interrupts
+	LPC_PINCON->PINSEL4 = 1<< 22;	//EINT1 is function 01 of P2.11
+	extint();
+	
+	while(1) {	//Display
+		LPC_GPIO1->FIOPIN = 0<<23;
+		LPC_GPIO0->FIOPIN = (width % 10) << 4;	//Extract LSD
+		for(i=0; i<500; i++);
+		LPC_GPIO0->FIOPIN = 0x00;
+		
+		LPC_GPIO1->FIOPIN = 1<<23;
+		LPC_GPIO0->FIOPIN = ((width/10) % 10) << 4;	//Extract MSD
+		for(i=0; i<500; i++);
+		LPC_GPIO0->FIOPIN = 0x00;
+	}
+}

@@ -1,0 +1,48 @@
+#include<LPC17xx.h>
+
+int r1 = 0, r2 = 0;	// TC corresponding to RE
+int freq, MR_Val;
+
+void timer(void) {
+	LPC_TIM0->PR = 0x00;
+	LPC_TIM0->MR1 = 0; // Take initially as 0
+	LPC_TIM0->MCR = 0x10;	//Reset TC upon match
+	LPC_TIM0->EMR = 0xC0; // Toggle
+	LPC_TIM0->CTCR = 0x00;	// Timer Mode
+	LPC_TIM0->CCR = 0x28;	// CR1 loaded with TC values for RE, Interrupt caused
+	NVIC_EnableIRQ(TIMER0_IRQn);	//Enable interrupt
+	LPC_TIM0->TCR = 0x01;	// Start Timer
+}
+
+void TIMER0_IRQHandler(void) {
+	LPC_TIM0->IR = 0x20;	// Clear CR1 interrupt
+	r1 = r2;	//Old RE = New RE
+	r2 = LPC_TIM0->CR1;	// New RE = Next RE
+	freq = r2 - r1 // TC diff * TCI = TC diff* 3 KHz
+	MR_Val = (freq/6)*2 - 1;	//Divided by 3 for getting TC diff, mul by 2 cuz gotta toggle twice every cycle
+}
+
+int main(void) {
+	//Config Timer
+	LPC_PINCON->PINSEL3 |= 0x03 << 22 // CAP0.1 is 11 function of P1.27
+	LPC_PINCON->PINSEL3 |= 0x03 << 26	// MAT0.1 is 11 function of P1.29
+	timer();
+	
+	//Configure GPIO. Assuming P0.4, P0.5
+	LPC_PINCON->PINSEL0 = 0;	// GPIO
+	LPC_GPIO0->FIODIR = 0; // Input
+	while(1) {
+		if((LPC_GPIO0->FIOPIN & 0x30) == 0x00) {
+			LPC_TIM0->MR1 = MR_Val
+		}
+		else if((LPC_GPIO0->FIOPIN & 0x30) == 0x10) {
+			LPC_TIM0->MR1 = (MR_Val+1)*2 - 1;
+		}
+		else if((LPC_GPIO0->FIOPIN & 0x30) == 0x20) {
+			LPC_TIM0->MR1 = (MR_Val+1)*4 - 1;
+		}
+		else if((LPC_GPIO0->FIOPIN & 0x30) == 0x30) {
+			LPC_TIM0->MR1 = (MR_Val+1)*8 - 1;
+		}
+	}
+}

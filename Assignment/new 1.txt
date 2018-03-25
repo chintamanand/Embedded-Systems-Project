@@ -1,0 +1,44 @@
+#include<LPC17xx.h>
+
+int r1 = 0, r2 = 0;	//TC corresponding to RE
+int freq;
+int i;
+
+void timer(void) {
+	LPC_TIM1->PR = 2999999;	//So that TCI is 1 HZ
+	LPC_TIM1->CTCR = 0x00;	// Timer Mode
+	LPC_TIM1->CCR = 0x05;	// CR0 loaded with TC values for RE, Interrupt caused
+	NVIC_EnableIRQ(TIMER1_IRQn);	//Enable interrupt
+	LPC_TIM1->TCR = 0x01;	// Start Timer
+}
+
+void TIMER1_IRQHandler(void) {
+	LPC_TIM1->IR = 0x10;	// Clear CR0 interrupt
+	r1 = r2;	//Old RE = New RE
+	r2 = LPC_TIM1->CR0;	// New RE = Next RE
+	freq = r2 - r1 // TC diff * TCI = TC diff Hz
+}
+
+int main(void) {
+	// Config Display
+	LPC_PINCON->PINSEL0 = 0;	//P0.4-P0.11 7 seg disp
+	LPC_PINCON->PINSEL3 = 0;	//P1.23-P1.26 decoder
+	LPC_GPIO0->FIODIR = 0xFF << 4;
+	LPC_GPIO1->FIODIR = 0xF << 23;
+	
+	//Config Timer
+	LPC_PINCON->PINSEL3 |= 0x30 //CAP1.0 is 11 function of P1.18
+	timer();
+	
+	while(1) {	//Display
+		LPC_GPIO1->FIOPIN = 0<<23;
+		LPC_GPIO0->FIOPIN = (freq % 10) << 4;	//Extract LSD
+		for(i=0; i<500; i++);
+		LPC_GPIO0->FIOPIN = 0x00;
+		
+		LPC_GPIO1->FIOPIN = 1<<23;
+		LPC_GPIO0->FIOPIN = ((freq/10) % 10) << 4;	//Extract MSD
+		for(i=0; i<500; i++);
+		LPC_GPIO0->FIOPIN = 0x00;
+	}
+}
