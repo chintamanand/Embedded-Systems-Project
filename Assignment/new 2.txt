@@ -1,9 +1,7 @@
 #include<LPC17xx.h>
-
 int start = 0, end = 0;	//TC corresponding
 int width;
 int i;
-
 void timer(void) {
 	LPC_TIM0->PR = 2999;	//So that TCI is 1 KHZ (TC increments every 1 ms)
 	LPC_TIM0->CTCR = 0x00;	// Timer Mode
