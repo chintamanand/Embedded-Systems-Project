@@ -22,7 +22,8 @@ void TIMER0_IRQHandler(void) {
 	MR_Val = (freq/6)*2 - 1;	//Divided by 3 for getting TC diff, mul by 2 cuz gotta toggle twice every cycle
 }
 
-int main(void) {
+int main(void) 
+{
 	//Config Timer
 	LPC_PINCON->PINSEL3 |= 0x03 << 22 // CAP0.1 is 11 function of P1.27
 	LPC_PINCON->PINSEL3 |= 0x03 << 26	// MAT0.1 is 11 function of P1.29
