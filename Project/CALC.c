@@ -7,6 +7,7 @@
 
  #include <lpc17xx.h>
 
+
 #define RS_CTRL  0x08000000  //P0.27
 #define EN_CTRL  0x10000000  //P0.28
 #define DT_CTRL  0x07800000  //P0.23 to P0.26 data lines
