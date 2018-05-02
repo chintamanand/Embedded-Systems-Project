@@ -1,5 +1,6 @@
     AREA RESET, DATA, READONLY
 	EXPORT __Vectors
+	
 __Vectors
 	DCD 0x10001000
 	DCD Reset_Handler
@@ -9,7 +10,6 @@ __Vectors
 	EXPORT Reset_Handler
 
 Reset_Handler
-	
 	LDR R0, =NUM1
 	LDR R1, [R0]
 	LDR R0, =NUM2
@@ -22,9 +22,11 @@ UP	CMP R3,R4
 	ADDLO R3,R3,R1
 	B UP
 EXIT	
+
     LDR R0,=RESULT
 	STR R4,[R0]
 STOP B STOP
+
 NUM1 DCD 9
 NUM2 DCD 6
 	AREA DATASEG, DATA, READWRITE
