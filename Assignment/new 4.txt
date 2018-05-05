@@ -9,7 +9,6 @@ void timer(void) {
 	LPC_TIM0->TCR = 0x01;	// Start Timer
 }
 
-
 int main(void) {
 	//Config Timer
 	LPC_PINCON->PINSEL3 |= 0x03 << 26	// MAT0.1 is 11 function of P1.29
