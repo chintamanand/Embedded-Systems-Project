@@ -5,7 +5,7 @@
  * Connection : CND to CNAD. Short jumper JP16
  ***************************************************************************/
 
- #include <lpc17xx.h>
+#include <lpc17xx.h>
 #include<stdlib.h>
 #define RS_CTRL  0x08000000  //P0.27
 #define EN_CTRL  0x10000000  //P0.28
