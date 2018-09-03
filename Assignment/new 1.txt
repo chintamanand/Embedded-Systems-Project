@@ -1,9 +1,7 @@
 #include<LPC17xx.h>
-
 int r1 = 0, r2 = 0;	//TC corresponding to RE
 int freq;
 int i;
-
 void timer(void) {
 	LPC_TIM1->PR = 2999999;	//So that TCI is 1 HZ
 	LPC_TIM1->CTCR = 0x00;	// Timer Mode
