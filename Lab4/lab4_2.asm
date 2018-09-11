@@ -7,7 +7,6 @@ __Vectors
 	AREA mycode, CODE, READONLY
 	ENTRY
 	EXPORT Reset_Handler
-
 Reset_Handler
 	LDR R0,=NUM1
 	LDR R1,[R0]
